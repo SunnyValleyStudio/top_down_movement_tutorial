@@ -30,11 +30,11 @@ public class PlayerTankMovement : MonoBehaviour
     }
 
 
-    public void RotateTankTurret(Vector3 direction)
+    public void RotateTankTurret(Vector3 endpoint)
     {
-        Quaternion desiredRotation = Quaternion.LookRotation(Vector3.forward,direction);
-        Quaternion includingThatWeAreFacingRight = Quaternion.Euler(0, 0, desiredRotation.eulerAngles.z + 90);
-        tankTurret.rotation = Quaternion.RotateTowards(tankTurret.rotation, includingThatWeAreFacingRight, rotationSpeedTurret * Time.deltaTime);
+        Quaternion desiredRotation = Quaternion.LookRotation(Vector3.forward, endpoint - tankTurret.position);
+        desiredRotation = Quaternion.Euler(0, 0, desiredRotation.eulerAngles.z+90);
+        tankTurret.rotation = Quaternion.RotateTowards(tankTurret.rotation, desiredRotation, rotationSpeedTurret * Time.deltaTime);
 
     }
 
